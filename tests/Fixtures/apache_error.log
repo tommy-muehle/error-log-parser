@@ -1,0 +1,1 @@
+[Tue Dec 29 08:14:45 2015] [warn] [client 193.158.15.243] mod_fcgid: stderr: PHP Warning:  Division by zero in /var/www/kd/app.de/src/Calc.php on line 346, referer: https://www.app.de

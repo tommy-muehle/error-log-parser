@@ -1,0 +1,37 @@
+{
+    "name": "tm/error-log-parser",
+    "type": "library",
+    "description": "PHP error_log parser library.",
+    "keywords": ["error_log", "error", "log", "apache", "parser", "nginx"],
+    "homepage": "https://github.com/tommy-muehle/error-log-parser",
+    "authors": [
+        {
+            "name": "Tommy Muehle",
+            "email": "tommy.muehle@gmail.com",
+            "homepage": "https://tommy-muehle.de"
+        }
+    ],
+    "support": {
+        "email": "tommy.muehle@gmail.com",
+        "issues": "https://github.com/tommy-muehle/error-log-parser/issues",
+        "docs": "https://github.com/tommy-muehle/error-log-parser/blob/master/README.md",
+        "source": "https://github.com/tommy-muehle/error-log-parser/tree/master"
+    },
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+            "TM\\ErrorLogParser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TM\\ErrorLogParser\\Tests\\": "tests/"
+        }
+    }
+}

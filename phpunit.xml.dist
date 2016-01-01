@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<phpunit bootstrap="vendor/autoload.php" backupGlobals="false">
+    <testsuites>
+        <testsuite name="Standard">
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src/</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>
