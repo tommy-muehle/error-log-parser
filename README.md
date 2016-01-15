@@ -17,7 +17,7 @@ or manually add this to composer.json
 
     {
         "require": {
-            "tm/error-log-parser": "~1.0"
+            "tm/error-log-parser": "~1.1"
         }
     }
 
