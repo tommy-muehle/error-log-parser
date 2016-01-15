@@ -23,11 +23,10 @@ or manually add this to composer.json
 
 ## Usage
 
-Instantiate the expected class:
+Instantiate the class:
 
-    $parser = new \TM\ErrorLogParser\Apache\Parser;
-    // or
-    $parser = new \TM\ErrorLogParser\Nginx\Parser;
+    use TM\ErrorLogParser\Parser; 
+    $parser = new Parser(Parser::TYPE_APACHE) // or TYPE_NGINX;
     
 And then parse the lines:
 

@@ -1,26 +1,16 @@
 <?php
 
-namespace TM\ErrorLogParser;
+namespace TM\ErrorLogParser\Parser;
 
 use TM\ErrorLogParser\Exception\FormatException;
 
 /**
  * Class AbstractParser
  *
- * @package TM\ErrorLogParser
+ * @package TM\ErrorLogParser\Parser
  */
-abstract class AbstractParser
+abstract class AbstractParser implements ParserInterface
 {
-    /**
-     * @return string
-     */
-    abstract public function getType();
-
-    /**
-     * @return array
-     */
-    abstract public function getPatterns();
-
     /**
      * @param string $line
      *
@@ -36,7 +26,7 @@ abstract class AbstractParser
             $result = preg_match($pattern, $line, $matches);
 
             if (1 !== $result) {
-                throw new FormatException(sprintf('Could not parse error-line for type "%s"!', $this->getType()));
+                throw new FormatException(sprintf('Could not parse error-line with "%s"!', get_class($this)));
             }
 
             $object->$key = $matches[1];

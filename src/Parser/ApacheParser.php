@@ -1,24 +1,16 @@
 <?php
 
-namespace TM\ErrorLogParser\Apache;
+namespace TM\ErrorLogParser\Parser;
 
-use TM\ErrorLogParser\AbstractParser;
+use TM\ErrorLogParser\Parser\AbstractParser;
 
 /**
  * Class Parser
  *
  * @package TM\ErrorLogParser\Apache
  */
-class Parser extends AbstractParser
+class ApacheParser extends AbstractParser
 {
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return 'apache';
-    }
-
     /**
      * @return array
      */

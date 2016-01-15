@@ -1,24 +1,14 @@
 <?php
 
-namespace TM\ErrorLogParser\Nginx;
-
-use TM\ErrorLogParser\AbstractParser;
+namespace TM\ErrorLogParser\Parser;
 
 /**
- * Class Parser
+ * Class NginxParser
  *
- * @package TM\ErrorLogParser\Nginx
+ * @package TM\ErrorLogParser\Parser
  */
-class Parser extends AbstractParser
+class NginxParser extends AbstractParser
 {
-    /**
-     * @return string
-     */
-    public function getType()
-    {
-        return 'nginx';
-    }
-
     /**
      * @return array
      */
