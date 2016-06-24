@@ -3,7 +3,6 @@
 namespace TM\ErrorLogParser\Tests;
 
 use TM\ErrorLogParser\Parser;
-use TM\ErrorLogParser\Exception\FormatException;
 
 /**
  * Class ParserTest
@@ -18,26 +17,45 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     private $parser;
 
     /**
-     * @covers TM\ErrorLogParser\Parser
+     * @dataProvider getValidApacheLogFiles
+     *
+     * @param string $logfile
      */
-    public function testCanParseACorrectApacheErrorLogLine()
+    public function testCanParseACorrectApacheErrorLogLine($logfile)
     {
         $parser = new Parser(Parser::TYPE_APACHE);
-        $lines = file(__DIR__ . '/Fixtures/apache_error.log');
+        $lines = file($logfile);
 
         $object = $parser->parse(current($lines));
 
         $this->assertEquals('warn', $object->type);
-        $this->assertEquals('193.158.15.243', $object->client);
+        $this->assertNotNull($object->message);
     }
 
     /**
-     * @covers TM\ErrorLogParser\Parser
+     * @dataProvider getInvalidApacheLogFiles
+     * @expectedException \TM\ErrorLogParser\Exception\FormatException
+     * @expectedExceptionMessageRegExp /The parser only supports the default Log-Format/
+     *
+     * @param $logfile
      */
-    public function testCanParseACorrectNginxErrorLogLine()
+    public function testSpecialLogFormatThrowsAnException($logfile)
+    {
+        $parser = new Parser(Parser::TYPE_APACHE);
+        $lines = file($logfile);
+
+        $object = $parser->parse(current($lines));
+    }
+
+    /**
+     * @dataProvider getValidNginxLogFiles
+     *
+     * @param string $logfile
+     */
+    public function testCanParseACorrectNginxErrorLogLine($logfile)
     {
         $parser = new Parser(Parser::TYPE_NGINX);
-        $lines = file(__DIR__ . '/Fixtures/nginx_error.log');
+        $lines = file($logfile);
 
         $object = $parser->parse(current($lines));
 
@@ -47,15 +65,33 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers TM\ErrorLogParser\Parser
+     * @return array
      */
-    public function testNotCorrectLineThrowsException()
+    public function getValidNginxLogFiles()
     {
-        $this->setExpectedException(FormatException::class, 'Could not parse error-line with "TM\ErrorLogParser\Parser\ApacheParser"!');
+        return [
+            [__DIR__ . '/Fixtures/nginx_valid_error.log'],
+        ];
+    }
 
-        $lines = file(__DIR__ . '/Fixtures/invalid.log');
-        $parser = new Parser(Parser::TYPE_APACHE);
+    /**
+     * @return array
+     */
+    public function getInvalidApacheLogFiles()
+    {
+        return [
+            [__DIR__ . '/Fixtures/apache_invalid_error.log'],
+        ];
+    }
 
-        $parser->parse(current($lines));
+    /**
+     * @return array
+     */
+    public function getValidApacheLogFiles()
+    {
+        return [
+            [__DIR__ . '/Fixtures/apache_valid_error.log'],
+            [__DIR__ . '/Fixtures/apache_valid_error2.log'],
+        ];
     }
 }

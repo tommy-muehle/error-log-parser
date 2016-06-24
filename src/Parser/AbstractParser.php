@@ -26,10 +26,14 @@ abstract class AbstractParser implements ParserInterface
             $result = preg_match($pattern, $line, $matches);
 
             if (1 !== $result) {
-                throw new FormatException(sprintf('Could not parse error-line with "%s"!', get_class($this)));
+                continue;
             }
 
             $object->$key = $matches[1];
+        }
+
+        if (false === property_exists($object, 'date') || false === property_exists($object, 'type')) {
+            throw new FormatException;
         }
 
         return $object;

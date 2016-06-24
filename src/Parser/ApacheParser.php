@@ -18,9 +18,9 @@ class ApacheParser extends AbstractParser
     {
         return [
             'date' => '~^\[(.*?)\]~',
-            'type' => '~\] \[([a-z]*?)\] \[~',
+            'type' => '/\[(warn|error|debug|info|crit|emerg|notice|alert)\]/',
             'client' => '~\] \[client ([0-9\.]*)\]~',
-            'message' => '~\] (.*)$~',
+            'message' => '/\]+\s+(?!\[)(.*)/',
         ];
     }
 }
