@@ -66,6 +66,12 @@ And for Nginx:
         [host] => "hotelpublisher.com"
     )
 
+Otherwise you can use the FormlessParser for formless log files:
+
+    stdClass Object (
+        [type] => "info"
+        [message] => "23263#0: *1 directory index of "/var/www/ssl/" is forbidden, client: 86.186.86.232, server: hotelpublisher.com, request: "GET / HTTP/1.1", host: "hotelpublisher.com""
+    )
 ## Contributing
 
 Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for information on how to contribute.
