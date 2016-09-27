@@ -6,6 +6,7 @@ use TM\ErrorLogParser\Exception\UnknownTypeException;
 use TM\ErrorLogParser\Exception\FormatException;
 use TM\ErrorLogParser\Parser\AbstractParser;
 use TM\ErrorLogParser\Parser\ApacheParser;
+use TM\ErrorLogParser\Parser\FormlessParser;
 use TM\ErrorLogParser\Parser\NginxParser;
 
 /**
@@ -17,6 +18,7 @@ class Parser
 {
     const TYPE_APACHE = 'apache';
     const TYPE_NGINX  = 'nginx';
+    const TYPE_FORMLESS  = 'formless';
 
     /**
      * @var AbstractParser
@@ -37,6 +39,10 @@ class Parser
 
         if (self::TYPE_NGINX === $type) {
             $this->parser = new NginxParser;
+        }
+
+        if (self::TYPE_FORMLESS === $type) {
+            $this->parser = new FormlessParser();
         }
 
         if (!$this->parser instanceof AbstractParser) {

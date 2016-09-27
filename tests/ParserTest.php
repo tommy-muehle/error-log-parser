@@ -33,6 +33,22 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider getValidFormlessLogFiles
+     *
+     * @param string $logfile
+     */
+    public function testCanParseAFormlessErrorLogLine($logfile)
+    {
+        $parser = new Parser(Parser::TYPE_FORMLESS);
+        $lines = file($logfile);
+
+        $object = $parser->parse(current($lines));
+
+        $this->assertEquals('info', $object->type);
+        $this->assertNotNull($object->message);
+    }
+
+    /**
      * @dataProvider getInvalidApacheLogFiles
      * @expectedException \TM\ErrorLogParser\Exception\FormatException
      * @expectedExceptionMessageRegExp /The parser only supports the default Log-Format/
@@ -71,6 +87,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [__DIR__ . '/Fixtures/nginx_valid_error.log'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidFormlessLogFiles()
+    {
+        return [
+            [__DIR__ . '/Fixtures/formless_error.log'],
         ];
     }
 
