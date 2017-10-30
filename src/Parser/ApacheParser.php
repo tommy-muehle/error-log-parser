@@ -2,8 +2,6 @@
 
 namespace TM\ErrorLogParser\Parser;
 
-use TM\ErrorLogParser\Parser\AbstractParser;
-
 /**
  * Class Parser
  *

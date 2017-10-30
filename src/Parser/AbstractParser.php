@@ -32,7 +32,11 @@ abstract class AbstractParser implements ParserInterface
             $object->$key = $matches[1];
         }
 
-        if (false === property_exists($object, 'date') || false === property_exists($object, 'type')) {
+        if (false === property_exists($object, 'date')) {
+            throw new FormatException;
+        }
+
+        if (false === property_exists($object, 'type')) {
             throw new FormatException;
         }
 

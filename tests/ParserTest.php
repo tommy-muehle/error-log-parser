@@ -12,11 +12,6 @@ use TM\ErrorLogParser\Parser;
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Parser
-     */
-    private $parser;
-
-    /**
      * @dataProvider getValidApacheLogFiles
      *
      * @param string $logfile
@@ -60,7 +55,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $parser = new Parser(Parser::TYPE_APACHE);
         $lines = file($logfile);
 
-        $object = $parser->parse(current($lines));
+        $parser->parse(current($lines));
     }
 
     /**
@@ -78,6 +73,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('error', $object->type);
         $this->assertEquals('86.186.86.232', $object->client);
         $this->assertEquals('hotelpublisher.com', $object->server);
+    }
+
+    /**
+     * @return void
+     */
+    public function testCanGetPattern()
+    {
+        $this->assertTrue(is_array((new Parser\ApacheParser())->getPatterns()));
+        $this->assertTrue(is_array((new Parser\NginxParser())->getPatterns()));
+        $this->assertTrue(is_array((new Parser\FormlessParser())->getPatterns()));
     }
 
     /**
