@@ -3,13 +3,15 @@
 namespace TM\ErrorLogParser\Tests;
 
 use TM\ErrorLogParser\Parser;
+use PHPUnit\Framework\TestCase;
+use TM\ErrorLogParser\Exception\UnknownTypeException;
 
 /**
  * Class ParserTest
  *
  * @package TM\ErrorLogParser\Tests\Apache
  */
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends TestCase
 {
     /**
      * @dataProvider getValidApacheLogFiles
@@ -73,6 +75,13 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('error', $object->type);
         $this->assertEquals('86.186.86.232', $object->client);
         $this->assertEquals('hotelpublisher.com', $object->server);
+    }
+
+    public function testThrowUnknownTypeExceptionOnInvalidParserType()
+    {
+        $this->setExpectedException(UnknownTypeException::class);
+
+        new Parser('UnknownParserType');
     }
 
     /**
